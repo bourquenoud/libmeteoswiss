@@ -29,13 +29,8 @@ cd libmeteoswiss
 
 ### Install the dependencies
 For Debian/Ubuntu :
-```
-sudo apt install libcurl4
-```
-
-For Arch :
-```
-sudo pacman -S libcurl
+```bash
+sudo apt install libcurl3-gnutls-dev
 ```
 
 ### Build the Library
