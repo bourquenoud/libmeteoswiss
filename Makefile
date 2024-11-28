@@ -23,7 +23,7 @@ TEST_DIR = test
 
 CFLAGS = -DHTTP_WRAPPER_DESKTOP=1 $(INCLUDES)
 
-VERSION = 0.0.1
+VERSION = $(shell cat VERSION)
 
 # Release build flags
 RELEASE_CFLAGS = -O3 -flto -fstack-protector-strong -fPIC -D_FORTIFY_SOURCE=2
