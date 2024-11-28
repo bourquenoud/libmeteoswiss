@@ -1,0 +1,14 @@
+*
+**
+
+!src
+!src/**
+
+!includes
+!includes/**
+
+!test
+!test/**
+
+!Makefile
+!.gitignore
