@@ -13,9 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: dependecies
+    - name: Install dependencies
       run: sudo apt install libcurl3-gnutls-dev
-    - name: make
-      run: make
-    - name: make test
+    - name: Build the library
+      run: make lib-test
+    - name: Run tests
       run: make test

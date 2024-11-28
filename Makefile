@@ -26,18 +26,27 @@ CFLAGS = -DHTTP_WRAPPER_DESKTOP=1 $(INCLUDES)
 VERSION = 0.0.1
 
 # Release build flags
-RELEASE_CFLAGS = -Werror -O3 -flto -fstack-protector-strong -fPIC -D_FORTIFY_SOURCE=2
+RELEASE_CFLAGS = -O3 -flto -fstack-protector-strong -fPIC -D_FORTIFY_SOURCE=2
 RELEASE_LDFLAGS = -shared -flto -fPIC
 
 # Debug build flags
-DEBUG_CFLAGS = -O0 -ggdb -g3
-DEBUG_LDFLAGS =
+DEBUG_CFLAGS := -Wall -O0 -ggdb -g3
+DEBUG_LDFLAGS :=
 
 LIB_SOURCES = $(shell find $(SRC_DIR) -iname "*.c")
 LIB_HEADERS = $(shell find $(SRC_DIR) -iname "*.h")
 
 LIB_DEBUG_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(DEBUG_DIR)/obj/%.o, $(LIB_SOURCES))
 LIB_RELEASE_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(RELEASE_DIR)/obj/%.o, $(LIB_SOURCES))
+
+ifeq ($(MAKECMDGOALS),lib-test)
+ DEBUG_CFLAGS := $(DEBUG_CFLAGS) -Werror
+ DEBUG_LDFLAGS := $(DEBUG_LDFLAGS) -Werror
+endif
+ifeq ($(MAKECMDGOALS), test)
+ DEBUG_CFLAGS := $(DEBUG_CFLAGS) -Werror
+ DEBUG_LDFLAGS := $(DEBUG_LDFLAGS) -Werror
+endif
 
 .PHONY: all
 all: lib
@@ -94,8 +103,12 @@ $(RELEASE_DIR)/$(LIB_NAME).pc: $(RELEASE_DIR)/$(STATIC_LIB) $(RELEASE_DIR)/$(SHA
 	echo 'Libs: -L$${libdir} -l:lib$(LIB_NAME).so' >> $(RELEASE_DIR)/$(LIB_NAME).pc
 	echo 'Libs.private: -L$${libdir} -l:lib$(LIB_NAME).a' >> $(RELEASE_DIR)/$(LIB_NAME).pc
 
+.PHONY: lib-test
+lib-test: lib-debug
+
 .PHONY: lib-debug
 lib-debug: $(DEBUG_DIR)/$(STATIC_LIB)
+
 
 .PHONY: install
 install: lib
