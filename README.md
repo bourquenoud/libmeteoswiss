@@ -9,13 +9,14 @@ A simple C library to interact with the MeteoSwiss API, providing weather data f
 - Access detailed weather graphs and data arrays.
 - Supports both static and dynamic linking.
 - Minimal dependencies.
+- Compatible with ESP32 (***UNTESTED and requires changes to the Makefile***)
 
 ## Requirements
 
 - **C Compiler**: GCC or compatible compiler supporting C99 standard.
 - **libcurl**: The library depends on [libcurl](https://curl.se/libcurl/) for HTTP requests.
-- **pkg-config**: For easy integration and linking.
 - **Operating System**: Currently tested only on Linux.
+- *(optional)* **pkg-config**: For easy integration and linking.
 
 ## Installation
 
@@ -24,6 +25,17 @@ A simple C library to interact with the MeteoSwiss API, providing weather data f
 ```bash
 git clone https://github.com/bourquenoud/libmeteoswiss.git
 cd libmeteoswiss
+```
+
+### Install the dependencies
+For Debian/Ubuntu :
+```
+sudo apt install libcurl4
+```
+
+For Arch :
+```
+sudo pacman -S libcurl
 ```
 
 ### Build the Library
@@ -55,21 +67,21 @@ sudo make install PREFIX=/custom/install/path
 Include the library header in your C source code:
 
 ```c
-#include "meteoswiss.h"
+#include <meteoswiss/meteoswiss.h>
 ```
 
-Compile and link your application using `pkg-config`:
+Compile and link your application :
 
 #### Linking with the Shared Library
 
 ```bash
-gcc your_app.c $(pkg-config --cflags --libs meteoswisslib) -o your_app
+gcc your_app.c $(pkg-config --cflags --libs meteoswiss) -o your_app
 ```
 
 #### Linking with the Static Library
 
 ```bash
-gcc your_app.c $(pkg-config --cflags --libs --static meteoswisslib) -o your_app
+gcc your_app.c $(pkg-config --cflags --libs --static meteoswiss) -o your_app
 ```
 
 ### Example
