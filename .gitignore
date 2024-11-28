@@ -6,6 +6,7 @@
 !README.md
 !LICENSE
 !VERSION
+!build_release.sh
 
 !.github
 !.github/**
