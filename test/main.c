@@ -161,7 +161,7 @@ int main()
     }
     else
     {
-        printf("ERROR: SOME TEST FAILED\n", total_tests - passed_tests);
+        printf("ERROR: SOME TEST FAILED\n");
         return 1;
     }
 }
