@@ -26,7 +26,7 @@ CFLAGS = -DHTTP_WRAPPER_DESKTOP=1 $(INCLUDES)
 VERSION = 0.0.1
 
 # Release build flags
-RELEASE_CFLAGS = -O3 -flto -fstack-protector-strong -fPIC -D_FORTIFY_SOURCE=2
+RELEASE_CFLAGS = -Werror -O3 -flto -fstack-protector-strong -fPIC -D_FORTIFY_SOURCE=2
 RELEASE_LDFLAGS = -shared -flto -fPIC
 
 # Debug build flags
