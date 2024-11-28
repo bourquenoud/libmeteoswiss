@@ -40,7 +40,7 @@ LIB_DEBUG_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(DEBUG_DIR)/obj/%.o, $(LIB_SOURC
 LIB_RELEASE_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(RELEASE_DIR)/obj/%.o, $(LIB_SOURCES))
 
 .PHONY: all
-all: test
+all: lib
 
 .PHONY: test
 test: $(DEBUG_DIR)/test/test_app
@@ -101,7 +101,7 @@ lib-debug: $(DEBUG_DIR)/$(STATIC_LIB)
 install: lib
 	@echo "Installing libraries and pkg-config file"
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)
-	$(MKDIR_P) $(DESTDIR)$(INCLUDEDIR)/meteoswiss
+	$(MKDIR_P) $(DESTDIR)$(INCLUDEDIR)/meteoswiss 
 	$(MKDIR_P) $(DESTDIR)$(LIBDIR)/pkgconfig
 	# Install the static library
 	install -m 644 $(RELEASE_DIR)/$(STATIC_LIB) $(DESTDIR)$(LIBDIR)
@@ -112,6 +112,13 @@ install: lib
 	# Install the pkg-config file
 	install -m 644 $(RELEASE_DIR)/$(LIB_NAME).pc $(DESTDIR)$(LIBDIR)/pkgconfig
 	sudo ldconfig
+
+.PHONY: uninstall
+uninstall:
+	rm -rf $(DESTDIR)$(INCLUDEDIR)/meteoswiss
+	rm -f $(DESTDIR)$(LIBDIR)/$(STATIC_LIB)
+	rm -f $(DESTDIR)$(LIBDIR)/$(SHARED_LIB)
+	rm -f $(DESTDIR)$(LIBDIR)/pkgconfig/$(LIB_NAME).pc
 
 .PHONY: clean
 clean:

@@ -18,27 +18,19 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef HTTP_CLIENT_H
-#define HTTP_CLIENT_H
+#include <meteoswiss/meteoswiss.h>
+#include <stdio.h>
 
-#include <stddef.h>
+int main() {
+    int postal_code = 1201; // Geneva
+    MeteoSwissData data;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
- * @brief Perform an HTTPS GET request.
- *
- * @param url The URL to request.
- * @param response Buffer to store the response.
- * @param max_response_size The maximum size of the response buffer.
- * @return 0 on success, non-zero on failure.
- */
-int https_get(const char *url, char *response, size_t max_response_size, unsigned int timeout);
-
-#ifdef __cplusplus
+    if (meteoswiss_query(postal_code, &data, 0) == 0) {
+        printf("Current Temperature: %.1f°C\n", data.currentWeather.temperature);
+        meteoswiss_data_free(&data);
+        return 0;
+    } else {
+        printf("Failed to retrieve weather data.\n");
+        return 1;
+    }
 }
-#endif
-
-#endif // HTTP_CLIENT_H
