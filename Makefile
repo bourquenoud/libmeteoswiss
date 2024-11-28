@@ -93,7 +93,7 @@ $(RELEASE_DIR)/$(LIB_NAME).pc: $(RELEASE_DIR)/$(STATIC_LIB) $(RELEASE_DIR)/$(SHA
 	echo 'prefix=$(PREFIX)' > $(RELEASE_DIR)/$(LIB_NAME).pc
 	echo 'exec_prefix=$${prefix}' >> $(RELEASE_DIR)/$(LIB_NAME).pc
 	echo 'libdir=$${exec_prefix}/lib' >> $(RELEASE_DIR)/$(LIB_NAME).pc
-	echo 'includedir=$${prefix}/include/meteoswiss' >> $(RELEASE_DIR)/$(LIB_NAME).pc
+	echo 'includedir=$${prefix}/include' >> $(RELEASE_DIR)/$(LIB_NAME).pc
 	echo '' >> $(RELEASE_DIR)/$(LIB_NAME).pc
 	echo 'Name: $(LIB_NAME)' >> $(RELEASE_DIR)/$(LIB_NAME).pc
 	echo 'Description: MeteoSwiss API Library' >> $(RELEASE_DIR)/$(LIB_NAME).pc
